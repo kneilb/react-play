@@ -1,16 +1,37 @@
 import React from 'react';
 
 
-const SayHi = ({unique, person}) => {
-    
-    console.log(person);
-    let className = 'namey ';
-    if ((unique % 2) === 0) {
-        className += 'wot';
+class SayHi extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onClick = this.onClick.bind(this)
+        
     }
 
-    return <div className={className} key={unique}>{'Hello ' + person }</div>;
-};
+    state = {
+        highlight : false        
+    }
+
+    onClick(eventObject) {
+        this.setState({highlight: !this.state.highlight});
+    }
+
+    render() {
+        let className = 'namey ';        
+        if (this.state.highlight) {
+            className += 'wot';
+        }
+
+        let person = this.props.person ? this.props.person : '';
+
+        let structure = <div>
+                {this.state.highlight ? <div>Hi</div> : null}
+                <div>yo</div>
+            </div>;
+
+        return <div className={className} onClick={this.onClick} >{'Hello ' + person }</div>;
+    }
+}
 
 // or 
 //const SayHi = (props) => {
